@@ -1,0 +1,111 @@
+using System;
+
+public class Vehicle
+{
+    public double X { get; set; }
+    public double Y { get; set; }
+    public decimal Price { get; set; }
+    public double Speed { get; set; }
+    public int Year { get; set; }
+
+    public Vehicle(double x, double y, decimal price, double speed, int year)
+    {
+        X = x;
+        Y = y;
+        Price = price;
+        Speed = speed;
+        Year = year;
+    }
+
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"Координаты: ({X}, {Y})");
+        Console.WriteLine($"Цена: {Price} руб.");
+        Console.WriteLine($"Скорость: {Speed} км/ч");
+        Console.WriteLine($"Год выпуска: {Year}");
+    }
+}
+
+
+public class Plane : Vehicle
+{
+    public double Altitude { get; set; }
+    public int Passengers { get; set; }
+
+    public Plane(double x, double y, decimal price, double speed, int year, 
+                double altitude, int passengers) 
+        : base(x, y, price, speed, year)
+    {
+        Altitude = altitude;
+        Passengers = passengers;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine("=== Самолет ===");
+        base.DisplayInfo();
+        Console.WriteLine($"Высота полета: {Altitude} м");
+        Console.WriteLine($"Количество пассажиров: {Passengers}");
+        Console.WriteLine();
+    }
+}
+
+
+public class Car : Vehicle
+{
+    public Car(double x, double y, decimal price, double speed, int year) 
+        : base(x, y, price, speed, year)
+    {
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine("=== Автомобиль ===");
+        base.DisplayInfo();
+        Console.WriteLine();
+    }
+}
+
+
+public class Ship : Vehicle
+{
+    public int Passengers { get; set; }
+    public string HomePort { get; set; }
+
+    public Ship(double x, double y, decimal price, double speed, int year, 
+               int passengers, string homePort) 
+        : base(x, y, price, speed, year)
+    {
+        Passengers = passengers;
+        HomePort = homePort;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine("=== Корабль ===");
+        base.DisplayInfo();
+        Console.WriteLine($"Количество пассажиров: {Passengers}");
+        Console.WriteLine($"Порт приписки: {HomePort}");
+        Console.WriteLine();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Создаем различные транспортные средства
+        Vehicle[] vehicles = new Vehicle[]
+        {
+            new Plane(100, 200, 50000000m, 900, 2020, 10000, 250),
+            new Car(50, 75, 2500000m, 180, 2022),
+            new Ship(300, 400, 200000000m, 50, 2018, 1500, "Санкт-Петербург")
+        };
+
+        
+        foreach (var vehicle in vehicles)
+        {
+            vehicle.DisplayInfo();
+        }
+    }
+}
